@@ -9,7 +9,7 @@ import opportunity from './app/Http/opportunityrouter.js'
 const app = express()
 const __dirname = path.resolve()
 const port = process.env.PORT || 8000
-const dbURI = "mongodb+srv://bestin_38:mypwD1234@cluster0.wzhxc.mongodb.net/ojcprojects?retryWrites=true&w=majority"
+
 
 app.use(express.json())
 app.use(express.static( path.join(__dirname, 'public')))
