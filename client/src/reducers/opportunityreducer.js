@@ -9,6 +9,9 @@ export default (state = initialState, action) => {
             return { ...state, opportunities: [ ...state.opportunities, ...action.payload ]}
         case 'GET_SINGLE_OPPORTUNITY':
             return { ...state, opportunity: action.payload }
+        case 'POST_COMMENT_TO_OPPORTUNITY':
+            console.log(action.payload.opportunity)
+            return { ...state, opportunity: action.payload.opportunity }
         default:
             return state
     }

@@ -1,4 +1,4 @@
-import { getAllOpportunityApi, getSingleOpportunityApi, postOpportunityApi } from "../api/opportunity"
+import { getAllOpportunityApi, getSingleOpportunityApi, postOpportunityApi, getSingleOpportunityCommentApi } from "../api/opportunity"
 
 export const getAllOpportunityAction = () => async (dispatch) => {
     try {
@@ -21,8 +21,16 @@ export const getSingleOpportunityAction = (id) => async (disptach) => {
 export const postOpportunityAction = (opportunity) => async (dispatch) => {
     try {
         const { data } = await postOpportunityApi(opportunity)
-        console.log(data)
         dispatch({ type: 'POST_OPPORTUNITY', payload: data })
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
+export const putSingleOpportunityCommentAction = (id, comment) => async (dispatch) => {
+    try {
+        const { data } = await getSingleOpportunityCommentApi(id, comment)
+        dispatch({ type: 'POST_COMMENT_TO_OPPORTUNITY', payload: data})
     } catch (err) {
         console.log(err.message)
     }

@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 
 import company from './app/Http/companyrouter.js'
 import opportunity from './app/Http/opportunityrouter.js'
@@ -9,7 +10,8 @@ import opportunity from './app/Http/opportunityrouter.js'
 const app = express()
 const __dirname = path.resolve()
 const port = process.env.PORT || 8000
-
+dotenv.config()
+const dbURI = process.env.DB_URI
 
 app.use(express.json())
 app.use(express.static( path.join(__dirname, 'public')))

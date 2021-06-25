@@ -2,7 +2,7 @@ import Opportunity from '../Model/opportunitymodel.js'
 
 export const getAllOpportunities = async (req, res) => {
     try {
-        const data = await Opportunity.find()
+        const data = await Opportunity.find().populate("comment")
         res.status(200).json({ opportunities: data })
     } catch (err) {
         res.status(400).json({ error: err.message })
@@ -12,7 +12,7 @@ export const getAllOpportunities = async (req, res) => {
 export const getOneOpportunity = async (req, res) => {
     const id = req.params.id
     try {
-        const data = await Opportunity.findById(id)
+        const data = await Opportunity.findById(id).populate("comment").populate('opportunities')
         res.status(200).json({ opportunity: data })
     } catch (err) {
         res.status(400).json({ error: err.message })

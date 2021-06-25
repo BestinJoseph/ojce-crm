@@ -17,7 +17,7 @@ const OpportunityCreate = () => {
     const dispatch = useDispatch()
     const props = useHistory()
 
-    const initialValues = { company: '', contact: '', purpose: '', project: '', category: [], priority: '', status: '', value: '', source: '', branch: ''}
+    const initialValues = { company: '', contact: '', purpose: '', project: '', department: [], priority: '', status: '', value: '', source: '', branch: '' }
 
     const validationSchema = Yup.object().shape({
         
@@ -57,12 +57,12 @@ const OpportunityCreate = () => {
                         { values.purpose === 'project' ? <Field as={ TextField } multiline label="Project Value" fullWidth name="value" className={classNames('textfield')}/> : '' }
                         <Box style={{ margin: '.75rem 0'}}>
                             <Typography variant="body1" style={{ marginBottom: '.5rem'}}>Target Department</Typography>
-                            <Field component={ CheckboxWithLabel } type="checkbox" value="geotechnical" name="category" Label={{ label: 'Geotechnical' }}/>
-                            <Field component={ CheckboxWithLabel } type="checkbox" value="material"  name="category" Label={{ label: 'Material' }}/>
-                            <Field component={ CheckboxWithLabel } type="checkbox" value="survey"  name="category" Label={{ label: 'Survey' }}/>
-                            <Field component={ CheckboxWithLabel } type="checkbox" value="chemical"  name="category" Label={{ label: 'Chemical' }}/>
-                            <Field component={ CheckboxWithLabel } type="checkbox" value="geophysical"  name="category" Label={{ label: 'Geophysical' }}/>
-                            <Field component={ CheckboxWithLabel } type="checkbox" value="ojpad"  name="category" Label={{ label: 'OJPAD' }}/>
+                            <Field component={ CheckboxWithLabel } type="checkbox" value="geotechnical" name="department" Label={{ label: 'Geotechnical' }}/>
+                            <Field component={ CheckboxWithLabel } type="checkbox" value="material"  name="department" Label={{ label: 'Material' }}/>
+                            <Field component={ CheckboxWithLabel } type="checkbox" value="survey"  name="department" Label={{ label: 'Survey' }}/>
+                            <Field component={ CheckboxWithLabel } type="checkbox" value="chemical"  name="department" Label={{ label: 'Chemical' }}/>
+                            <Field component={ CheckboxWithLabel } type="checkbox" value="geophysical"  name="department" Label={{ label: 'Geophysical' }}/>
+                            <Field component={ CheckboxWithLabel } type="checkbox" value="ojpad"  name="department" Label={{ label: 'OJPAD' }}/>
                         </Box>
                         <Field label="Priority" fullWidth name="priority" select defaultValue="" as={ TextField } className={classNames('textfield')}>
                             <MenuItem value="">Select Client Priority</MenuItem>
@@ -83,7 +83,7 @@ const OpportunityCreate = () => {
                             <MenuItem value="social media">Social Media</MenuItem>
                             <MenuItem value="other branches">Other Branch</MenuItem>
                         </Field>
-                        { values.source === 'other branch' ? <Field as={ TextField } multiline label="Other Branch" fullWidth name="branch" className={classNames('textfield')}/> : '' }
+                        { values.source === 'other branches' ? <Field as={ TextField } multiline label="Other Branch" fullWidth name="branch" className={classNames('textfield')}/> : '' }
                         <Button variant="contained" color="primary" type="submit" className={classNames('btn')}>Create</Button>
                     </Form>
                 )}

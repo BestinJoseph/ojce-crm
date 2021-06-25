@@ -28,7 +28,8 @@ const opportunitySchema = mongoose.Schema({
         enum: ["current customer", 'customer referral', "personal referral", "website", "social media", "email", "digital campagain", "phone call", "other branches"]
      },
     branch: { type: String, require: false },
-    comment: [Object],
+    comment: [{type: mongoose.Schema.Types.ObjectId, ref: 'comments'}],
+    lastCommented: { type: Date, require: true, default: Date.now() },
     description: { type: String, require: false }
 }, {timestamps: true})
 
