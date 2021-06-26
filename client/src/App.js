@@ -1,9 +1,11 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { Typography } from '@material-ui/core'
 
-import { getCompanies } from './actions/companyaction'
 import Header from './components/layouts/Header'
+import Register from './components/Auth/Register'
+import Login from './components/Auth/Login'
 import Dashboard from './components/Dashboard'
 import About from './components/About'
 import Company from './components/companies/Company'
@@ -13,26 +15,27 @@ import OpportunityCreate from './components/opportunities/OpportunityCreate'
 import SingleCompany from './components/companies/SingleCompany'
 import OpporunitySingle from './components/opportunities/OpportunitySingle'
 
-function App() {
-  const dispatch = useDispatch()
+import AuthRoute from './components/private-routes/AuthRoute'
 
-  useEffect(() => {
-    dispatch( getCompanies() )
-  },[dispatch])
+function App() {
+  const { users: { isAuthenticated }, errors: { errors } } = useSelector( state => state )
 
   return (
     <Fragment>
       <Router>
-        <Header />
+        { isAuthenticated ? <Header /> : '' }
+        { errors ? <Typography variant="body1">{ errors.message }</Typography> : '' }
         <Switch>
-          <Route path="/" exact><Dashboard /></Route>
-          <Route path="/about" exact><About /></Route>
-          <Route path="/company" exact><Company /></Route>
-          <Route path="/company/create" exact><Createcompany /></Route>
-          <Route path="/company/:id" exact><SingleCompany /></Route>
-          <Route path="/opportunity" exact><Opportunity /></Route>
-          <Route path="/opportunity/create" exact><OpportunityCreate /></Route>
-          <Route path="/opportunity/:id" exact><OpporunitySingle /></Route>
+          <AuthRoute path="/" exact component={Dashboard}/>
+          <Route path="/register" exact><Register /></Route>
+          <Route path="/login" exact><Login /></Route>
+          <AuthRoute path="/about" exact component={About}/>
+          <AuthRoute path="/company" exact component={Company} />
+          <AuthRoute path="/company/create" exact component={Createcompany} />
+          <AuthRoute path="/company/:id" exact component={SingleCompany} />
+          <AuthRoute path="/opportunity" exact component={Opportunity} />
+          <AuthRoute path="/opportunity/create" exact component={OpportunityCreate} />
+          <AuthRoute path="/opportunity/:id" exact component={OpporunitySingle} />
         </Switch>
       </Router>
     </Fragment>

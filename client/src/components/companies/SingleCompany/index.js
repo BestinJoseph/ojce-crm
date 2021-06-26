@@ -23,8 +23,6 @@ const SingleCompany = (props) => {
         dispatch(getCompany(id))
     }, [dispatch, id])
 
-    console.log(company)
-
     const handleEdit = () => {
         setEdit(false)
     }

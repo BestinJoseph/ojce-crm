@@ -5,7 +5,7 @@ import { Paper, TextField, Button, MenuItem, Box, Typography } from '@material-u
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import classNames from 'classnames'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { CheckboxWithLabel } from 'formik-material-ui'
 
@@ -16,6 +16,9 @@ const OpportunityCreate = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const props = useHistory()
+    const { companies } = useSelector( state => state.companies )
+
+    console.log(companies)
 
     const initialValues = { company: '', contact: '', purpose: '', project: '', department: [], priority: '', status: '', value: '', source: '', branch: '' }
 
@@ -37,15 +40,15 @@ const OpportunityCreate = () => {
                         <h4 className={classNames('headerText')}>New Opportunity</h4>
                         <Field label="Company" fullWidth name="company" select defaultValue="" as={ TextField } className={classNames('textfield')}>
                             <MenuItem value="">Select Company Name</MenuItem>
-                            <MenuItem value="el seif">El Seif</MenuItem>
-                            <MenuItem value="fast">Fast</MenuItem>
-                            <MenuItem value="al bawani">Al Bawani</MenuItem>
+                            { companies.map( (comm, index) => (
+                                <MenuItem value={ comm.name } key={index}>{ comm.name }</MenuItem>
+                            ))}
                         </Field>
                         <Field label="Contact Person" fullWidth name="contact" select defaultValue="" as={ TextField } className={classNames('textfield')}>
                             <MenuItem value="">Select Contact Person</MenuItem>
-                            <MenuItem value="john doe">John Doe</MenuItem>
-                            <MenuItem value="tim sheik">Tim Sheik</MenuItem>
-                            <MenuItem value="mohd brayan">Mohd Brayan</MenuItem>
+                            { values.company !== '' && (companies.filter( comm => comm.name === values.company )[0].contacts).map( (cont, index) => (
+                                <MenuItem value="john doe" key={index}>{ cont.name }</MenuItem>
+                            ))}
                         </Field>
                         <Field label="Visit Purpose" fullWidth name="purpose" select defaultValue="" as={ TextField } className={classNames('textfield')}>
                             <MenuItem value="">Select Visit Purpose</MenuItem>

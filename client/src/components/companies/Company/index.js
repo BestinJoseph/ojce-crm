@@ -1,10 +1,11 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { Box, Paper, Table, TableHead, TableRow, TableCell, TableContainer, TableBody, TablePagination, Grid } from '@material-ui/core'
 import classNames from 'classnames'
 
 import useStyles from './company'
+import { getCompanies } from '../../../actions/companyaction'
 
 const Company = () => {
   const classes = useStyles()
@@ -12,12 +13,15 @@ const Company = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const history = useHistory()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getCompanies())
+  },[dispatch])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   }
-
-  // console.log(companies)
 
   const removeable = [ '_id', '__v', 'createdAt', 'updatedAt', 'contacts', 'companies', 'company']
   
